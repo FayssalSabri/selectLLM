@@ -1,0 +1,2 @@
+2025-07-07 10:27:05,201 - INFO - ===== Début du test pour le LLM: mistral =====
+2025-07-07 10:27:05,247 - INFO -  Dataset chargé : data/Benign_BruteForce_Mirai_balanced.csv | 12410 lignes, 84 colonnes

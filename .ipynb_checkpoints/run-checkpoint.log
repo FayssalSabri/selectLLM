@@ -1,0 +1,313 @@
+2025-07-06 20:04:04,234 - INFO - --- Démarrage du script ---
+2025-07-06 20:04:04,280 - INFO - ✅ Dataset chargé : data/Benign_BruteForce_Mirai_balanced.csv | 12410 lignes, 84 colonnes
+2025-07-06 20:04:04,280 - INFO - 
+--- Démarrage de la sélection avec LLM-SCORE ---
+2025-07-06 20:04:04,281 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:04:06,958 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 1997
+2025-07-06 20:04:06,959 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:04:08,694 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2025-07-06 20:04:08,695 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:04:10,021 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 1916
+2025-07-06 20:04:10,024 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:04:11,529 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 2010
+2025-07-06 20:04:11,529 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:04:14,094 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2025-07-06 20:04:14,096 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:04:15,462 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 1932
+2025-07-06 20:04:15,465 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:04:17,168 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2025-07-06 20:04:17,171 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:04:18,794 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 2042
+2025-07-06 20:04:18,797 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:04:20,487 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2025-07-06 20:04:20,490 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:04:22,491 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2025-07-06 20:04:22,494 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:04:24,654 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2025-07-06 20:04:24,657 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:04:26,812 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2025-07-06 20:04:26,815 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:04:28,285 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 2037
+2025-07-06 20:04:28,288 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:04:29,915 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2025-07-06 20:04:29,918 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:04:31,363 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 2029
+2025-07-06 20:04:31,366 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:04:32,704 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 1975
+2025-07-06 20:04:32,704 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:04:34,171 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 2048
+2025-07-06 20:04:34,174 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:04:35,530 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 1977
+2025-07-06 20:04:35,533 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:04:37,555 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2025-07-06 20:04:37,556 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:04:38,870 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 1978
+2025-07-06 20:04:38,873 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:04:40,431 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2025-07-06 20:04:40,432 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:04:42,725 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2025-07-06 20:04:42,726 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:04:44,720 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2025-07-06 20:04:44,721 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:04:46,717 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2025-07-06 20:04:46,720 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:04:48,902 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2025-07-06 20:04:48,905 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:04:51,090 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2025-07-06 20:04:51,093 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:04:53,475 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2025-07-06 20:04:53,478 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:04:56,153 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2025-07-06 20:04:56,156 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:04:57,985 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2025-07-06 20:04:57,988 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:05:00,391 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2025-07-06 20:05:00,394 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:05:02,930 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2025-07-06 20:05:02,933 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:05:04,670 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2025-07-06 20:05:04,673 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:05:06,878 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2025-07-06 20:05:06,879 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:05:08,504 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2025-07-06 20:05:08,507 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:05:11,317 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2025-07-06 20:05:11,320 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:05:13,599 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2025-07-06 20:05:13,602 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:05:16,104 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2025-07-06 20:05:16,107 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:05:18,298 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2025-07-06 20:05:18,301 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:05:20,911 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2025-07-06 20:05:20,914 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:05:22,811 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2025-07-06 20:05:22,814 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:05:24,355 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 2029
+2025-07-06 20:05:24,358 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:05:25,809 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 2004
+2025-07-06 20:05:25,812 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:05:27,488 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2025-07-06 20:05:27,489 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:05:29,457 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2025-07-06 20:05:29,459 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:05:30,978 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 2015
+2025-07-06 20:05:30,980 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:05:32,303 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 1917
+2025-07-06 20:05:32,306 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:05:33,870 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 2017
+2025-07-06 20:05:33,873 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:05:35,280 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 1975
+2025-07-06 20:05:35,283 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:05:36,737 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 1997
+2025-07-06 20:05:36,740 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:05:38,550 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2025-07-06 20:05:38,551 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:05:40,297 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2025-07-06 20:05:40,300 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:05:42,401 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2025-07-06 20:05:42,404 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:05:44,669 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2025-07-06 20:05:44,672 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:05:46,634 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2025-07-06 20:05:46,636 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:05:48,109 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 1989
+2025-07-06 20:05:48,112 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:05:50,209 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2025-07-06 20:05:50,210 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:05:52,373 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2025-07-06 20:05:52,376 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:05:54,075 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2025-07-06 20:05:54,078 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:05:55,563 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 2002
+2025-07-06 20:05:55,566 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:05:57,007 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 2021
+2025-07-06 20:05:57,009 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:05:58,470 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 2030
+2025-07-06 20:05:58,472 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:06:00,426 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2025-07-06 20:06:00,428 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:06:01,774 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 1995
+2025-07-06 20:06:01,774 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:06:03,705 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2025-07-06 20:06:03,706 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:06:06,081 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2025-07-06 20:06:06,084 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:06:08,352 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2025-07-06 20:06:08,354 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:06:10,463 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2025-07-06 20:06:10,465 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:06:12,343 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2025-07-06 20:06:12,346 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:06:13,853 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 2015
+2025-07-06 20:06:13,854 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:06:15,849 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2025-07-06 20:06:15,852 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:06:18,070 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2025-07-06 20:06:18,072 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:06:20,085 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2025-07-06 20:06:20,088 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:06:21,836 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2025-07-06 20:06:21,837 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:06:24,143 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2025-07-06 20:06:24,146 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:06:26,528 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2025-07-06 20:06:26,531 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:06:28,436 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2025-07-06 20:06:28,439 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:06:30,141 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2025-07-06 20:06:30,144 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:06:31,953 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2025-07-06 20:06:31,955 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:06:34,015 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2025-07-06 20:06:34,016 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:06:35,876 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2025-07-06 20:06:35,879 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:06:37,688 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2025-07-06 20:06:37,691 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:06:39,328 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2025-07-06 20:06:39,330 - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-07-06 20:06:40,829 - DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 1973
+2025-07-06 20:06:40,830 - INFO - 
+Scores des caractéristiques obtenus :
+2025-07-06 20:06:40,831 - INFO - - Flow Duration: 0.9000
+2025-07-06 20:06:40,831 - INFO - - Flow IAT Mean: 0.9000
+2025-07-06 20:06:40,831 - INFO - - Flow IAT Min: 0.9000
+2025-07-06 20:06:40,831 - INFO - - Bwd Packets/s: 0.9000
+2025-07-06 20:06:40,831 - INFO - - SYN Flag Count: 0.9000
+2025-07-06 20:06:40,831 - INFO - - Subflow Bwd Packets: 0.9000
+2025-07-06 20:06:40,831 - INFO - - Active Mean: 0.9000
+2025-07-06 20:06:40,831 - INFO - - Bwd IAT Mean: 0.8500
+2025-07-06 20:06:40,831 - INFO - - Bwd Packet/Bulk Avg: 0.8500
+2025-07-06 20:06:40,831 - INFO - - Flow Packets/s: 0.8000
+2025-07-06 20:06:40,831 - INFO - - Protocol: 0.7500
+2025-07-06 20:06:40,831 - INFO - - Fwd Packet Length Max: 0.7500
+2025-07-06 20:06:40,831 - INFO - - Fwd Packet Length Std: 0.7500
+2025-07-06 20:06:40,831 - INFO - - Bwd Packet Length Min: 0.7500
+2025-07-06 20:06:40,831 - INFO - - Flow Bytes/s: 0.7500
+2025-07-06 20:06:40,831 - INFO - - Flow IAT Std: 0.7500
+2025-07-06 20:06:40,832 - INFO - - Flow IAT Max: 0.7500
+2025-07-06 20:06:40,832 - INFO - - Fwd IAT Total: 0.7500
+2025-07-06 20:06:40,832 - INFO - - Fwd IAT Mean: 0.7500
+2025-07-06 20:06:40,832 - INFO - - Fwd IAT Std: 0.7500
+2025-07-06 20:06:40,832 - INFO - - Fwd IAT Max: 0.7500
+2025-07-06 20:06:40,832 - INFO - - Bwd IAT Total: 0.7500
+2025-07-06 20:06:40,832 - INFO - - Bwd IAT Std: 0.7500
+2025-07-06 20:06:40,832 - INFO - - Bwd IAT Max: 0.7500
+2025-07-06 20:06:40,832 - INFO - - Bwd IAT Min: 0.7500
+2025-07-06 20:06:40,832 - INFO - - Fwd Packets/s: 0.7500
+2025-07-06 20:06:40,832 - INFO - - URG Flag Count: 0.7500
+2025-07-06 20:06:40,832 - INFO - - Down/Up Ratio: 0.7500
+2025-07-06 20:06:40,832 - INFO - - Fwd Packet/Bulk Avg: 0.7500
+2025-07-06 20:06:40,832 - INFO - - Fwd Bulk Rate Avg: 0.7500
+2025-07-06 20:06:40,832 - INFO - - Subflow Fwd Packets: 0.7500
+2025-07-06 20:06:40,832 - INFO - - Subflow Bwd Bytes: 0.7500
+2025-07-06 20:06:40,832 - INFO - - Fwd Act Data Pkts: 0.7500
+2025-07-06 20:06:40,832 - INFO - - Active Max: 0.7500
+2025-07-06 20:06:40,832 - INFO - - Src IP: 0.7000
+2025-07-06 20:06:40,833 - INFO - - Src Port: 0.7000
+2025-07-06 20:06:40,833 - INFO - - Dst IP: 0.7000
+2025-07-06 20:06:40,833 - INFO - - Dst Port: 0.7000
+2025-07-06 20:06:40,833 - INFO - - Timestamp: 0.7000
+2025-07-06 20:06:40,833 - INFO - - Total Fwd Packet: 0.7000
+2025-07-06 20:06:40,833 - INFO - - Total Bwd packets: 0.7000
+2025-07-06 20:06:40,833 - INFO - - Total Length of Fwd Packet: 0.7000
+2025-07-06 20:06:40,833 - INFO - - Total Length of Bwd Packet: 0.7000
+2025-07-06 20:06:40,833 - INFO - - Fwd Packet Length Min: 0.7000
+2025-07-06 20:06:40,833 - INFO - - Bwd Packet Length Max: 0.7000
+2025-07-06 20:06:40,833 - INFO - - Bwd Packet Length Mean: 0.7000
+2025-07-06 20:06:40,833 - INFO - - Bwd Packet Length Std: 0.7000
+2025-07-06 20:06:40,833 - INFO - - Fwd IAT Min: 0.7000
+2025-07-06 20:06:40,833 - INFO - - Fwd PSH Flags: 0.7000
+2025-07-06 20:06:40,833 - INFO - - Bwd PSH Flags: 0.7000
+2025-07-06 20:06:40,833 - INFO - - Bwd URG Flags: 0.7000
+2025-07-06 20:06:40,833 - INFO - - Fwd Header Length: 0.7000
+2025-07-06 20:06:40,833 - INFO - - Packet Length Min: 0.7000
+2025-07-06 20:06:40,834 - INFO - - Packet Length Max: 0.7000
+2025-07-06 20:06:40,834 - INFO - - Packet Length Mean: 0.7000
+2025-07-06 20:06:40,834 - INFO - - Packet Length Std: 0.7000
+2025-07-06 20:06:40,834 - INFO - - Packet Length Variance: 0.7000
+2025-07-06 20:06:40,834 - INFO - - RST Flag Count: 0.7000
+2025-07-06 20:06:40,834 - INFO - - PSH Flag Count: 0.7000
+2025-07-06 20:06:40,834 - INFO - - ACK Flag Count: 0.7000
+2025-07-06 20:06:40,834 - INFO - - CWR Flag Count: 0.7000
+2025-07-06 20:06:40,834 - INFO - - ECE Flag Count: 0.7000
+2025-07-06 20:06:40,834 - INFO - - Average Packet Size: 0.7000
+2025-07-06 20:06:40,834 - INFO - - Fwd Segment Size Avg: 0.7000
+2025-07-06 20:06:40,834 - INFO - - Bwd Segment Size Avg: 0.7000
+2025-07-06 20:06:40,834 - INFO - - Fwd Bytes/Bulk Avg: 0.7000
+2025-07-06 20:06:40,834 - INFO - - Bwd Bytes/Bulk Avg: 0.7000
+2025-07-06 20:06:40,834 - INFO - - Bwd Bulk Rate Avg: 0.7000
+2025-07-06 20:06:40,834 - INFO - - Subflow Fwd Bytes: 0.7000
+2025-07-06 20:06:40,834 - INFO - - FWD Init Win Bytes: 0.7000
+2025-07-06 20:06:40,834 - INFO - - Bwd Init Win Bytes: 0.7000
+2025-07-06 20:06:40,834 - INFO - - Fwd Seg Size Min: 0.7000
+2025-07-06 20:06:40,835 - INFO - - Active Std: 0.7000
+2025-07-06 20:06:40,835 - INFO - - Active Min: 0.7000
+2025-07-06 20:06:40,835 - INFO - - Idle Mean: 0.7000
+2025-07-06 20:06:40,835 - INFO - - Idle Min: 0.7000
+2025-07-06 20:06:40,835 - INFO - - Flow ID: 0.6000
+2025-07-06 20:06:40,835 - INFO - - Fwd Packet Length Mean: 0.6000
+2025-07-06 20:06:40,835 - INFO - - Fwd URG Flags: 0.6000
+2025-07-06 20:06:40,835 - INFO - - Bwd Header Length: 0.6000
+2025-07-06 20:06:40,835 - INFO - - FIN Flag Count: 0.6000
+2025-07-06 20:06:40,835 - INFO - - Idle Std: 0.6000
+2025-07-06 20:06:40,835 - INFO - - Idle Max: 0.6000
+2025-07-06 20:06:40,835 - INFO - 
+--- Démarrage de l'évaluation en aval (multi-modèles) ---
+2025-07-06 20:06:40,835 - INFO - 
+### Pour les 8 (10%) meilleures caractéristiques :
+2025-07-06 20:06:41,615 - INFO - ----------- Modèle : RandomForest -----------
+2025-07-06 20:06:41,615 - INFO -      ---> AUROC    : 0.8718
+2025-07-06 20:06:41,615 - INFO -      ---> Accuracy : 0.7256
+2025-07-06 20:06:41,791 - INFO - ----------- Modèle : LogisticRegression -----------
+2025-07-06 20:06:41,791 - INFO -      ---> AUROC    : 0.6120
+2025-07-06 20:06:41,791 - INFO -      ---> Accuracy : 0.4404
+2025-07-06 20:06:49,417 - INFO - ----------- Modèle : SVC -----------
+2025-07-06 20:06:49,418 - INFO -      ---> AUROC    : 0.6094
+2025-07-06 20:06:49,418 - INFO -      ---> Accuracy : 0.4492
+2025-07-06 20:06:49,418 - INFO - 
+### Pour les 24 (30%) meilleures caractéristiques :
+2025-07-06 20:06:50,472 - INFO - ----------- Modèle : RandomForest -----------
+2025-07-06 20:06:50,472 - INFO -      ---> AUROC    : 0.9568
+2025-07-06 20:06:50,472 - INFO -      ---> Accuracy : 0.8517
+2025-07-06 20:06:51,115 - INFO - ----------- Modèle : LogisticRegression -----------
+2025-07-06 20:06:51,115 - INFO -      ---> AUROC    : 0.6379
+2025-07-06 20:06:51,116 - INFO -      ---> Accuracy : 0.3864
+2025-07-06 20:07:00,777 - INFO - ----------- Modèle : SVC -----------
+2025-07-06 20:07:00,777 - INFO -      ---> AUROC    : 0.6521
+2025-07-06 20:07:00,777 - INFO -      ---> Accuracy : 0.4738
+2025-07-06 20:07:00,777 - INFO - 
+### Pour les 41 (50%) meilleures caractéristiques :
+2025-07-06 20:07:02,045 - INFO - ----------- Modèle : RandomForest -----------
+2025-07-06 20:07:02,045 - INFO -      ---> AUROC    : 0.9639
+2025-07-06 20:07:02,045 - INFO -      ---> Accuracy : 0.8707
+2025-07-06 20:07:02,690 - INFO - ----------- Modèle : LogisticRegression -----------
+2025-07-06 20:07:02,690 - INFO -      ---> AUROC    : 0.6856
+2025-07-06 20:07:02,690 - INFO -      ---> Accuracy : 0.5463
+2025-07-06 20:07:13,022 - INFO - ----------- Modèle : SVC -----------
+2025-07-06 20:07:13,022 - INFO -      ---> AUROC    : 0.6655
+2025-07-06 20:07:13,022 - INFO -      ---> Accuracy : 0.4730
+2025-07-06 20:07:13,022 - INFO - 
+### Pour les 58 (70%) meilleures caractéristiques :
+2025-07-06 20:07:14,280 - INFO - ----------- Modèle : RandomForest -----------
+2025-07-06 20:07:14,281 - INFO -      ---> AUROC    : 0.9678
+2025-07-06 20:07:14,281 - INFO -      ---> Accuracy : 0.8880
+2025-07-06 20:07:14,944 - INFO - ----------- Modèle : LogisticRegression -----------
+2025-07-06 20:07:14,944 - INFO -      ---> AUROC    : 0.6959
+2025-07-06 20:07:14,944 - INFO -      ---> Accuracy : 0.5492
+2025-07-06 20:07:27,868 - INFO - ----------- Modèle : SVC -----------
+2025-07-06 20:07:27,868 - INFO -      ---> AUROC    : 0.6707
+2025-07-06 20:07:27,868 - INFO -      ---> Accuracy : 0.4742
+2025-07-06 20:07:27,868 - INFO - 
+### Pour les 83 (100%) meilleures caractéristiques :
+2025-07-06 20:07:29,057 - INFO - ----------- Modèle : RandomForest -----------
+2025-07-06 20:07:29,057 - INFO -      ---> AUROC    : 0.9689
+2025-07-06 20:07:29,057 - INFO -      ---> Accuracy : 0.8860
+2025-07-06 20:07:29,718 - INFO - ----------- Modèle : LogisticRegression -----------
+2025-07-06 20:07:29,718 - INFO -      ---> AUROC    : 0.7152
+2025-07-06 20:07:29,718 - INFO -      ---> Accuracy : 0.5612
+2025-07-06 20:07:46,971 - INFO - ----------- Modèle : SVC -----------
+2025-07-06 20:07:46,971 - INFO -      ---> AUROC    : 0.6597
+2025-07-06 20:07:46,971 - INFO -      ---> Accuracy : 0.4742
+2025-07-06 20:07:46,971 - INFO - --- Fin du script ---
