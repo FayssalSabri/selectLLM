@@ -271,4 +271,3 @@ if __name__ == "__main__":
                 logger.info(f"--> Modèle : {model_name} | AUROC: {results['auc']:.4f} | ACC: {results['accuracy']:.4f}")
 
         logger.info(f"===== Fin du test pour le LLM: {llm_name} =====\n\n")
-
