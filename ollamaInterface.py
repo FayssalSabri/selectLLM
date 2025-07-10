@@ -5,7 +5,7 @@ class OllamaInterface:
     Interface pour interagir avec Ollama via HTTP.
     """
 
-    def __init__(self, model: str = "mistral", host: str = "http://localhost:11434"):
+    def __init__(self, model: str = "ollama3.2", host: str = "http://localhost:11434"):
         """
         Args:
             model (str): Nom du modèle Ollama.

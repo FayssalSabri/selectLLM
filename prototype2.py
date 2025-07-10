@@ -24,192 +24,10 @@ from h2o.automl import H2OAutoML
 import time
 import json
 import re
-from collections import defaultdict
+from evaluation import evaluate_feature_subset_with_time_P2 
+from feature_selector import FeatureSelectorP2
+from ollamaInterface import OllamaInterface
 
-# --- Modules provided by the user ---
-# Note: These files must be in the same directory as the Streamlit app
-try:
-    from ollamaInterface import OllamaInterface
-    # The feature_selector is now enhanced locally
-    # from feature_selector import FeatureSelector
-except ImportError as e:
-    st.error(f"Erreur d'importation des modules locaux: {e}. Assurez-vous que ollamaInterface.py est dans le même dossier.")
-    # Use placeholder classes if imports fail
-    class OllamaInterface:
-        def __init__(self, model="mock"): self.model = model
-        def generate(self, prompt): time.sleep(1); return '```json\n{"mean radius": 0.9, "mean texture": 0.5}\n```'
-
-# --- Enhanced Feature Selector with Batch and Self-Consistency ---
-class FeatureSelector:
-    def __init__(self, llm_interface):
-        self.llm = llm_interface
-
-    def _construct_batch_score_prompt(self, concepts: list[str], task: str, data_preview: str) -> str:
-        return f"""
-        You are a world-class machine learning expert specializing in feature selection.
-        Your task is to evaluate the importance of a list of features for a given prediction task.
-
-        **Prediction Task:** "{task}"
-
-        **Candidate Features:**
-        {concepts}
-
-        **Data Preview (first 5 rows):**
-        ```
-        {data_preview}
-        ```
-
-        Based on all this information, provide an importance score (from 0.0 for irrelevant to 1.0 for essential) for EACH feature.
-
-        **Output Format:**
-        Provide ONLY ONE JSON object inside a markdown code block. The JSON object should map each feature name to its score. Do not include reasoning in this response.
-
-        Example of a correct output format:
-        ```json
-        {{
-            "feature_name_1": 0.8,
-            "feature_name_2": 0.3,
-            "feature_name_3": 0.95
-        }}
-        ```
-        """
-
-    def _parse_batch_score_response(self, response: str) -> dict:
-        """
-        Parses the LLM response to extract a JSON object, even if it's not perfectly formatted.
-        """
-        # First, try to find a JSON object within markdown ```json ... ```
-        match = re.search(r"```json\s*(\{.*?\})\s*```", response, re.DOTALL)
-        
-        # If not found, try to find any JSON object {...} in the string
-        if not match:
-            match = re.search(r'(\{.*\})', response, re.DOTALL)
-
-        if not match:
-            st.warning(f"Impossible de trouver un objet JSON dans la réponse du LLM : {response[:200]}...")
-            return {}
-            
-        json_string = match.group(1)
-        try:
-            # Clean up the string just in case (e.g., trailing commas)
-            # This is a common issue with LLM-generated JSON
-            cleaned_json_string = re.sub(r',\s*\}', '}', json_string)
-            cleaned_json_string = re.sub(r',\s*\]', ']', cleaned_json_string)
-            return json.loads(cleaned_json_string)
-        except json.JSONDecodeError as e:
-            st.warning(f"Erreur de décodage JSON : {e}. Réponse brute : {json_string[:200]}...")
-            return {}
-
-    def get_scores_robust(self, concepts: list[str], task_description: str, data_preview: str, n_runs: int = 1) -> dict[str, float]:
-        """
-        Implements a robust version of LLM-SCORE using batching and self-consistency.
-        """
-        all_scores = defaultdict(list)
-        
-        for i in range(n_runs):
-            st.write(f"Exécution de l'analyse LLM n°{i+1}/{n_runs}...")
-            prompt = self._construct_batch_score_prompt(concepts, task_description, data_preview)
-            response = self.llm.generate(prompt)
-            scores = self._parse_batch_score_response(response)
-            for feature, score in scores.items():
-                if feature in concepts:
-                    all_scores[feature].append(float(score))
-        
-        # Average the scores from all runs
-        final_scores = {feature: np.mean(scores) for feature, scores in all_scores.items() if scores}
-        
-        # Sort scores
-        sorted_scores = dict(sorted(final_scores.items(), key=lambda item: item[1], reverse=True))
-        return sorted_scores
-
-# --- Enhanced Evaluation Function with Time and More Metrics ---
-def evaluate_feature_subset_with_time(
-    data: pd.DataFrame,
-    selected_features: list[str],
-    target_column: str,
-    model: BaseEstimator
-) -> dict:
-    """
-    Evaluates a subset of features and measures training/inference time, 
-    along with additional classification metrics.
-    """
-    default_metrics = {
-        "auc": 0.5, "accuracy": 0.5, "f1": 0.0, "precision": 0.0, "recall": 0.0,
-        "training_time": 0, "inference_time": 0
-    }
-    
-    if not selected_features:
-        return default_metrics
-
-    numeric_features = [f for f in selected_features if pd.api.types.is_numeric_dtype(data[f])]
-    if not numeric_features:
-        return default_metrics
-
-    X = data[numeric_features].copy()
-    y = data[target_column]
-    X.replace([np.inf, -np.inf], np.nan, inplace=True)
-    X.dropna(inplace=True)
-    y = y.loc[X.index]
-
-    if X.empty:
-        return default_metrics
-
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42, stratify=y)
-    
-    if X_train.empty or X_test.empty or len(set(y_train)) < 2 or len(set(y_test)) < 2:
-        return default_metrics
-
-    # --- Training time ---
-    start_train_time = time.time()
-    model.fit(X_train, y_train)
-    end_train_time = time.time()
-    training_time = end_train_time - start_train_time
-
-    # --- Inference time ---
-    start_infer_time = time.time()
-    predictions = model.predict(X_test)
-    end_infer_time = time.time()
-    inference_time = end_infer_time - start_infer_time
-
-    # --- Metrics calculation ---
-    # Determine average type for multiclass metrics
-    avg_type = 'weighted' if len(np.unique(y_test)) > 2 else 'binary'
-
-    acc = accuracy_score(y_test, predictions)
-    f1 = f1_score(y_test, predictions, average=avg_type, zero_division=0)
-    precision = precision_score(y_test, predictions, average=avg_type, zero_division=0)
-    recall = recall_score(y_test, predictions, average=avg_type, zero_division=0)
-    
-    y_scores = None
-    try:
-        y_scores = model.predict_proba(X_test)
-    except AttributeError:
-        try:
-            y_scores = model.decision_function(X_test)
-        except AttributeError:
-            pass # y_scores remains None
-
-    auc = 0.5 # default
-    if y_scores is not None:
-        try:
-            classes = np.unique(y_train)
-            if len(classes) > 2:
-                y_test_bin = label_binarize(y_test, classes=classes)
-                auc = roc_auc_score(y_test_bin, y_scores, multi_class='ovr')
-            else:
-                y_scores_pos = y_scores[:, 1] if y_scores.ndim == 2 and y_scores.shape[1] == 2 else y_scores.ravel()
-                auc = roc_auc_score(y_test, y_scores_pos)
-        except Exception:
-            pass # auc remains 0.5
-    
-    # --- Efficiency Score ---
-    # efficiency_score = acc / training_time if training_time > 0.0001 else 0.0
-            
-    return {
-        "auc": auc, "accuracy": acc, "f1": f1, "precision": precision, "recall": recall,
-        "training_time": training_time, "inference_time": inference_time,
-        
-    }
 
 
 # --- H2O AutoML Section ---
@@ -288,7 +106,8 @@ if page == "1. Chargement des données":
         st.session_state.llm_scores = None
         st.session_state.classic_selected_features = None
         st.success("Données de démonstration (Cancer) chargées!")
-        st.rerun()
+        st.dataframe(df.head())
+        # st.rerun()
 
 
 # --- Other Pages (2, 3, 4) ---
@@ -373,7 +192,7 @@ elif page == "5. Réduction de Dimension & Sélection de Features":
                 with st.spinner(f"Le modèle '{llm_name}' analyse les features (x{n_runs})..."):
                     try:
                         ollama_llm = OllamaInterface(model=llm_name)
-                        selector = FeatureSelector(llm_interface=ollama_llm)
+                        selector = FeatureSelectorP2(llm_interface=ollama_llm)
                         concepts = features.columns.tolist()
                         data_preview = st.session_state.original_data.head().to_markdown()
                         
@@ -420,43 +239,45 @@ elif page == "5. Réduction de Dimension & Sélection de Features":
                         "SVC": SVC(probability=True, random_state=42),
                     }
                     selected_models = st.multiselect("Choisissez les modèles pour l'évaluation:", list(models_to_evaluate.keys()), default=["RandomForest"])
-                    score_thresholds = st.multiselect(
+                    score_Scores = st.multiselect(
                         "Choisissez les seuils de score minimum à tester:", 
                         options=[0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1, 0.0], 
-                        default=[0.8, 0.6, 0.4]
+                        default=[0.1, 0.4, 0.7, 0.9]
                     )
                     eval_submitted = st.form_submit_button("Lancer l'évaluation par seuil")
 
                 if eval_submitted:
                     evaluation_results = []
                     with st.spinner("Évaluation en cours..."):
-                        for threshold in sorted(score_thresholds, reverse=True):
-                            subset = scores_df[scores_df['Score'] >= threshold]['Feature'].tolist()
+                        for Score in sorted(score_Scores, reverse=True):
+                            subset = scores_df[scores_df['Score'] >= Score]['Feature'].tolist()
                             if not subset:
-                                st.write(f"Aucune feature avec un score >= {threshold}. Saut de l'évaluation.")
+                                st.write(f"Aucune feature avec un score >= {Score}. Saut de l'évaluation.")
                                 continue
 
                             for model_name in selected_models:
                                 model = models_to_evaluate[model_name]
-                                results = evaluate_feature_subset_with_time(
+                                results = evaluate_feature_subset_with_time_P2(
                                     data=st.session_state.original_data,
                                     selected_features=subset,
                                     target_column=target,
                                     model=model
                                 )
+                                # Ajout des infos complémentaires au dictionnaire
                                 results['Model'] = model_name
-                                results['Threshold'] = threshold
+                                results['Score'] = Score
                                 results['Num_Features'] = len(subset)
+
                                 evaluation_results.append(results)
 
+                    # Conversion de la liste de dicts en DataFrame
+                    df_results = pd.DataFrame(evaluation_results)
                     st.success("Évaluation terminée!")
 
-                    # Convertir en DataFrame
-                    df_results = pd.DataFrame(evaluation_results)
 
-                    # Réorganiser les colonnes pour mettre 'Model', 'Threshold', 'Num_Features' en premier
+                    # Réorganiser les colonnes pour mettre 'Model', 'Score', 'Num_Features' en premier
                     cols = df_results.columns.tolist()
-                    ordered_cols = ['Model', 'Threshold', 'Num_Features'] + [col for col in cols if col not in ['Model', 'Threshold', 'Num_Features']]
+                    ordered_cols = ['Model', 'Score', 'Num_Features'] + [col for col in cols if col not in ['Model', 'Score', 'Num_Features']]
                     df_results = df_results[ordered_cols]
 
                     st.session_state.evaluation_results_llm = df_results
@@ -469,42 +290,43 @@ elif page == "5. Réduction de Dimension & Sélection de Features":
                     st.dataframe(results_df)
 
                     # Convertir le seuil en string pour l'axe X
-                    results_df['Threshold_str'] = results_df['Threshold'].astype(str)
+                    results_df['Score_str'] = results_df.apply(lambda row: f"{row['Score']} ({row['Num_Features']})", axis=1)
+                    
 
                     # === FIGURE 1 : AUC & Accuracy ===
                     fig1, (ax_auc, ax_acc) = plt.subplots(1, 2, figsize=(20, 7))
-                    sns.barplot(data=results_df, x='Threshold_str', y='auc', hue='Model', ax=ax_auc)
+                    sns.barplot(data=results_df, x='Score_str', y='auc', hue='Model', ax=ax_auc)
                     ax_auc.set_title('Performance (AUC) par Seuil de Score')
                     ax_auc.set_ylabel('AUC Score')
-                    ax_auc.set_xlabel('Seuil de score minimum')
+                    ax_auc.set_xlabel('Seuil de score minimum (Nombre de features)')
 
-                    sns.barplot(data=results_df, x='Threshold_str', y='accuracy', hue='Model', ax=ax_acc)
+                    sns.barplot(data=results_df, x='Score_str', y='accuracy', hue='Model', ax=ax_acc)
                     ax_acc.set_title('Performance (Accuracy) par Seuil de Score')
                     ax_acc.set_ylabel('Accuracy Score')
-                    ax_acc.set_xlabel('Seuil de score minimum')
+                    ax_acc.set_xlabel('Seuil de score minimum (Nombre de features)')
 
                     st.pyplot(fig1)
 
                     # === FIGURE 2 : Training Time & Inference Time ===
                     fig2, (ax_train, ax_inf) = plt.subplots(1, 2, figsize=(20, 7))
-                    sns.barplot(data=results_df, x='Threshold_str', y='training_time', hue='Model', ax=ax_train)
+                    sns.barplot(data=results_df, x='Score_str', y='training_time', hue='Model', ax=ax_train)
                     ax_train.set_title("Temps d'entraînement par Seuil")
                     ax_train.set_ylabel('Temps d\'entraînement')
-                    ax_train.set_xlabel('Seuil de score minimum')
+                    ax_train.set_xlabel('Seuil de score minimum (Nombre de features)')
 
-                    sns.barplot(data=results_df, x='Threshold_str', y='inference_time', hue='Model', ax=ax_inf)
+                    sns.barplot(data=results_df, x='Score_str', y='inference_time', hue='Model', ax=ax_inf)
                     ax_inf.set_title("Temps d'inférence par Seuil")
                     ax_inf.set_ylabel('Temps d\'inférence')
-                    ax_inf.set_xlabel('Seuil de score minimum')
+                    ax_inf.set_xlabel('Seuil de score minimum (Nombre de features)')
 
                     st.pyplot(fig2)
 
                     # === FIGURE 3 : F1-Score ===
                     fig3, ax_f1 = plt.subplots(figsize=(10, 7))
-                    sns.barplot(data=results_df, x='Threshold_str', y='f1', hue='Model', ax=ax_f1)
+                    sns.barplot(data=results_df, x='Score_str', y='f1', hue='Model', ax=ax_f1)
                     ax_f1.set_title("Performance (F1-Score) par Seuil de Score")
                     ax_f1.set_ylabel('F1-Score')
-                    ax_f1.set_xlabel('Seuil de score minimum')
+                    ax_f1.set_xlabel('Seuil de score minimum (Nombre de features)')
 
                     st.pyplot(fig3)
 

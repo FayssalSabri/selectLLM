@@ -356,6 +356,7 @@ from sklearn.feature_selection import SelectKBest, f_classif, f_regression, RFE
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 from sklearn.linear_model import LogisticRegression
+from xgboost import XGBClassifier
 from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score, r2_score, mean_squared_error, mean_absolute_error
 from sklearn.manifold import TSNE
@@ -664,6 +665,7 @@ elif page == "5. Réduction de Dimension & Sélection de Features":
                     "RandomForest": RandomForestClassifier(n_estimators=100, random_state=42),
                     "LogisticRegression": LogisticRegression(max_iter=1000, random_state=42),
                     "SVC": SVC(probability=True, random_state=42),
+                    "XGBoost":  XGBClassifier(n_estimators=2, max_depth=2, learning_rate=1, objective='binary:logistic')
                 }
 
                 selected_models = st.multiselect("Choisissez les modèles pour l'évaluation:", list(models_to_evaluate.keys()), default=["RandomForest"], key="eval_models_llm")

@@ -2,7 +2,7 @@
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import roc_auc_score, accuracy_score
+from sklearn.metrics import f1_score, precision_score, recall_score, roc_auc_score, accuracy_score
 from sklearn.base import BaseEstimator
 from sklearn.preprocessing import label_binarize
 import time
@@ -93,6 +93,84 @@ import time
 
 #     return {"auc": auc, "accuracy": acc}
 
+# def evaluate_feature_subset_with_time(
+#     data: pd.DataFrame,
+#     selected_features: list[str],
+#     target_column: str,
+#     model: BaseEstimator
+# ) -> dict:
+#     """
+#     Evaluates a subset of features and measures training/inference time.
+#     """
+#     if not selected_features:
+#         return {"auc": 0.5, "accuracy": 0.5, "training_time": 0, "inference_time": 0}
+
+#     numeric_features = [f for f in selected_features if pd.api.types.is_numeric_dtype(data[f])]
+#     if not numeric_features:
+#         return {"auc": 0.5, "accuracy": 0.5, "training_time": 0, "inference_time": 0}
+
+#     X = data[numeric_features].copy()
+#     y = data[target_column]
+#     X.replace([np.inf, -np.inf], np.nan, inplace=True)
+#     X.dropna(inplace=True)
+#     y = y.loc[X.index]
+
+#     if X.empty:
+#         return {"auc": 0.5, "accuracy": 0.5, "training_time": 0, "inference_time": 0}
+
+#     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42, stratify=y)
+    
+#     if X_train.empty or X_test.empty or len(set(y_train)) < 2 or len(set(y_test)) < 2:
+#         return {"auc": 0.5, "accuracy": 0.5, "training_time": 0, "inference_time": 0}
+    
+
+#     # --- Training time ---
+#     start_train_time = time.time()
+#     model.fit(X_train, y_train)
+#     end_train_time = time.time()
+#     training_time = end_train_time - start_train_time
+
+#     # --- Inference time ---
+#     start_infer_time = time.time()
+#     predictions = model.predict(X_test)
+#     end_infer_time = time.time()
+#     inference_time = end_infer_time - start_infer_time
+
+#     # --- Metrics calculation ---
+#     acc = accuracy_score(y_test, predictions)
+    
+#     y_scores = None
+#     try:
+#         y_scores = model.predict_proba(X_test)
+#     except AttributeError:
+#         try:
+#             y_scores = model.decision_function(X_test)
+#         except AttributeError:
+#             pass # y_scores remains None
+
+#     auc = 0.5 # default
+#     if y_scores is not None:
+#         try:
+#             classes = np.unique(y_train)
+#             if len(classes) > 2:
+#                 y_test_bin = label_binarize(y_test, classes=classes)
+#                 auc = roc_auc_score(y_test_bin, y_scores, multi_class='ovr')
+#             else:
+#                 y_scores_pos = y_scores[:, 1] if y_scores.ndim == 2 and y_scores.shape[1] == 2 else y_scores.ravel()
+#                 auc = roc_auc_score(y_test, y_scores_pos)
+#         except Exception:
+#             pass # auc remains 0.5
+            
+#     return {"auc": auc, "accuracy": acc, "training_time": training_time, "inference_time": inference_time}
+from sklearn.preprocessing import LabelEncoder, label_binarize
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score, roc_auc_score
+import numpy as np
+import time
+import pandas as pd
+from sklearn.base import BaseEstimator
+import xgboost as xgb
+
 def evaluate_feature_subset_with_time(
     data: pd.DataFrame,
     selected_features: list[str],
@@ -118,10 +196,19 @@ def evaluate_feature_subset_with_time(
     if X.empty:
         return {"auc": 0.5, "accuracy": 0.5, "training_time": 0, "inference_time": 0}
 
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42, stratify=y)
-    
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.2, random_state=42, stratify=y
+    )
+
     if X_train.empty or X_test.empty or len(set(y_train)) < 2 or len(set(y_test)) < 2:
         return {"auc": 0.5, "accuracy": 0.5, "training_time": 0, "inference_time": 0}
+
+    # ✅ Cas spécifique : encoder les labels pour XGBoost
+    if isinstance(model, xgb.XGBClassifier):
+        if y_train.dtype == 'object' or y_train.dtype.name == 'category':
+            le = LabelEncoder()
+            y_train = le.fit_transform(y_train)
+            y_test = le.transform(y_test)
 
     # --- Training time ---
     start_train_time = time.time()
@@ -137,6 +224,93 @@ def evaluate_feature_subset_with_time(
 
     # --- Metrics calculation ---
     acc = accuracy_score(y_test, predictions)
+
+    y_scores = None
+    try:
+        y_scores = model.predict_proba(X_test)
+    except AttributeError:
+        try:
+            y_scores = model.decision_function(X_test)
+        except AttributeError:
+            pass
+
+    auc = 0.5
+    if y_scores is not None:
+        try:
+            classes = np.unique(y_train)
+            if len(classes) > 2:
+                y_test_bin = label_binarize(y_test, classes=classes)
+                auc = roc_auc_score(y_test_bin, y_scores, multi_class='ovr')
+            else:
+                y_scores_pos = y_scores[:, 1] if y_scores.ndim == 2 and y_scores.shape[1] == 2 else y_scores.ravel()
+                auc = roc_auc_score(y_test, y_scores_pos)
+        except Exception:
+            pass
+
+    return {
+        "auc": auc,
+        "accuracy": acc,
+        "training_time": training_time,
+        "inference_time": inference_time
+    }
+
+
+def evaluate_feature_subset_with_time_P2(
+    data: pd.DataFrame,
+    selected_features: list[str],
+    target_column: str,
+    model: BaseEstimator
+) -> dict:
+    """
+    Evaluates a subset of features and measures training/inference time, 
+    along with additional classification metrics.
+    """
+    default_metrics = {
+        "auc": 0.5, "accuracy": 0.5, "f1": 0.0, "precision": 0.0, "recall": 0.0,
+        "training_time": 0, "inference_time": 0
+    }
+    
+    if not selected_features:
+        return default_metrics
+
+    numeric_features = [f for f in selected_features if pd.api.types.is_numeric_dtype(data[f])]
+    if not numeric_features:
+        return default_metrics
+
+    X = data[numeric_features].copy()
+    y = data[target_column]
+    X.replace([np.inf, -np.inf], np.nan, inplace=True)
+    X.dropna(inplace=True)
+    y = y.loc[X.index]
+
+    if X.empty:
+        return default_metrics
+
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42, stratify=y)
+    
+    if X_train.empty or X_test.empty or len(set(y_train)) < 2 or len(set(y_test)) < 2:
+        return default_metrics
+
+    # --- Training time ---
+    start_train_time = time.time()
+    model.fit(X_train, y_train)
+    end_train_time = time.time()
+    training_time = end_train_time - start_train_time
+
+    # --- Inference time ---
+    start_infer_time = time.time()
+    predictions = model.predict(X_test)
+    end_infer_time = time.time()
+    inference_time = end_infer_time - start_infer_time
+
+    # --- Metrics calculation ---
+    # Determine average type for multiclass metrics
+    avg_type = 'weighted' if len(np.unique(y_test)) > 2 else 'binary'
+
+    acc = accuracy_score(y_test, predictions)
+    f1 = f1_score(y_test, predictions, average=avg_type, zero_division=0)
+    precision = precision_score(y_test, predictions, average=avg_type, zero_division=0)
+    recall = recall_score(y_test, predictions, average=avg_type, zero_division=0)
     
     y_scores = None
     try:
@@ -159,5 +333,12 @@ def evaluate_feature_subset_with_time(
                 auc = roc_auc_score(y_test, y_scores_pos)
         except Exception:
             pass # auc remains 0.5
+    
+    # --- Efficiency Score ---
+    # efficiency_score = acc / training_time if training_time > 0.0001 else 0.0
             
-    return {"auc": auc, "accuracy": acc, "training_time": training_time, "inference_time": inference_time}
+    return {
+        "auc": auc, "accuracy": acc, "f1": f1, "precision": precision, "recall": recall,
+        "training_time": training_time, "inference_time": inference_time,
+        
+    }
